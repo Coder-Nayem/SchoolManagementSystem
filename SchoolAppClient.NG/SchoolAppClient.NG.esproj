@@ -1,0 +1,69 @@
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.271090-alpha">
+  <PropertyGroup>
+    <StartupCommand>npm start</StartupCommand>
+    <JavaScriptTestFramework>Jasmine</JavaScriptTestFramework>
+    <!-- Allows the build (or compile) script located on package.json to run on Build -->
+    <ShouldRunBuildScript>false</ShouldRunBuildScript>
+    <!-- Folder where production build objects will be placed -->
+    <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\SchoolAppClient.NG\</BuildOutputFolder>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="src\app\Authentication\SecurityModels\auth-request.spec.ts" />
+    <None Remove="src\app\Authentication\SecurityModels\auth-response.spec.ts" />
+    <None Remove="src\app\Authentication\SecurityModels\auth.guard.spec.ts" />
+    <None Remove="src\app\Authentication\SecurityModels\auth.interceptor.spec.ts" />
+    <None Remove="src\app\Authentication\SecurityModels\auth.service.spec.ts" />
+    <None Remove="src\app\Models\academic-month.spec.ts" />
+    <None Remove="src\app\Models\attendance.spec.ts" />
+    <None Remove="src\app\Models\create-exam-schedule-standard-vm.spec.ts" />
+    <None Remove="src\app\Models\create-exam-subject-vm.spec.ts" />
+    <None Remove="src\app\Models\create-exam-subject-with-schedule-vm.spec.ts" />
+    <None Remove="src\app\Models\department.spec.ts" />
+    <None Remove="src\app\Models\due-balance.spec.ts" />
+    <None Remove="src\app\Models\exam-schedule-standard-for-exam-schedule-vm.spec.ts" />
+    <None Remove="src\app\Models\exam-schedule-standard-vm.spec.ts" />
+    <None Remove="src\app\Models\exam-schedule-standard.spec.ts" />
+    <None Remove="src\app\Models\exam-schedule-vm.spec.ts" />
+    <None Remove="src\app\Models\exam-schedule.spec.ts" />
+    <None Remove="src\app\Models\exam-subject-vm.spec.ts" />
+    <None Remove="src\app\Models\exam-subject.spec.ts" />
+    <None Remove="src\app\Models\examtype.spec.ts" />
+    <None Remove="src\app\Models\fee.spec.ts" />
+    <None Remove="src\app\Models\feetype.spec.ts" />
+    <None Remove="src\app\Models\get-exam-schedule-options-response.spec.ts" />
+    <None Remove="src\app\Models\marks-entry.spec.ts" />
+    <None Remove="src\app\Models\marks.spec.ts" />
+    <None Remove="src\app\Models\other-payment-details.spec.ts" />
+    <None Remove="src\app\Models\other-payment.spec.ts" />
+    <None Remove="src\app\Models\payemnt-details.spec.ts" />
+    <None Remove="src\app\Models\paymentmonth.spec.ts" />
+    <None Remove="src\app\Models\staff-salary.spec.ts" />
+    <None Remove="src\app\Models\staff.spec.ts" />
+    <None Remove="src\app\Models\student.spec.ts" />
+    <None Remove="src\app\Models\subject.spec.ts" />
+    <None Remove="src\app\Models\update-exam-schedule-standard-vm.spec.ts" />
+    <None Remove="src\app\Services\attendance.service.spec.ts" />
+    <None Remove="src\app\Services\common.service.spec.ts" />
+    <None Remove="src\app\Services\department.service.spec.ts" />
+    <None Remove="src\app\Services\exam-schedule-standard.service.spec.ts" />
+    <None Remove="src\app\Services\exam-schedule.service.spec.ts" />
+    <None Remove="src\app\Services\examtype.service.service.spec.ts" />
+    <None Remove="src\app\Services\examtype.service.spec.ts" />
+    <None Remove="src\app\Services\fee-service.service.spec.ts" />
+    <None Remove="src\app\Services\feetype.service.spec.ts" />
+    <None Remove="src\app\Services\marks-entry.service.spec.ts" />
+    <None Remove="src\app\Services\marks.service.spec.ts" />
+    <None Remove="src\app\Services\monthly-payment.service.spec.ts" />
+    <None Remove="src\app\Services\other-payment.service.spec.ts" />
+    <None Remove="src\app\Services\Reports\product-report.service.spec.ts" />
+    <None Remove="src\app\Services\staff-salary.service.spec.ts" />
+    <None Remove="src\app\Services\staff.service.spec.ts" />
+    <None Remove="src\app\Services\standard.service.spec.ts" />
+    <None Remove="src\app\Services\student.service.spec.ts" />
+    <None Remove="src\app\Services\subject.service.spec.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\app\Models\StaticImageModel\" />
+    <Folder Include="src\app\Layout\" />
+  </ItemGroup>
+</Project>

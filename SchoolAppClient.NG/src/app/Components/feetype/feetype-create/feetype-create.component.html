@@ -1,0 +1,16 @@
+<div class="container">
+  <h2>Create Fee Type</h2>
+
+  <form #feeTypeForm="ngForm" (ngSubmit)="createFeeType()">
+    <div class="form-group">
+      <label for="feeTypeName">Fee Type Name:</label>
+      <input type="text" class="form-control" id="feeTypeName" name="feeTypeName" [(ngModel)]="feeType.typeName" required #feeTypeName="ngModel">
+      <div *ngIf="feeTypeName.invalid && (feeTypeName.dirty || feeTypeName.touched)" class="text-danger">
+        <div *ngIf="feeTypeName.errors && feeTypeName.errors['required']">
+          Fee Type Name is required.
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="feeTypeForm.invalid">Submit</button>
+  </form>
+</div>

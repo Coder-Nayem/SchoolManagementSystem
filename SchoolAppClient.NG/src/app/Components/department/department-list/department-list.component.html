@@ -1,0 +1,28 @@
+<div class="container">
+  <h2>Department List</h2>
+  <a class="btn btn-success" routerLink="/departments/create">Create Department</a>
+  <div class="form-group">
+    <input type="text" class="form-control short-input" placeholder="Search by Name" [(ngModel)]="searchName">
+  </div>
+  <ejs-grid #grid [dataSource]="departments" [allowPaging]="true" [pageSettings]="pageSettings"
+            [filterSettings]="filterSettings" [searchSettings]="searchSettings">
+    <e-columns>
+      <e-column field="departmentId" headerText="ID" width="100"></e-column>
+      <e-column field="departmentName" headerText="Name" width="200"></e-column>
+      <e-column headerText="Action" width="150">
+        <ng-template #template let-data>
+          <a class="btn btn-primary" [routerLink]="['/departments', data.departmentId, 'edit']">Edit</a>
+          <button class="btn btn-danger" (click)="confirmDelete(data.departmentId)">Delete</button>
+        </ng-template>
+      </e-column>
+    </e-columns>
+  </ejs-grid>
+</div>
+<div class="confirmation-popup" *ngIf="confirmationDialogVisible">
+  <div class="confirmation-dialog">
+    <app-confirmation-dialog [title]="'Confirmation'"
+                             [message]="'Are you sure you want to delete this Department?'"></app-confirmation-dialog>
+    <button class="btn btn-danger" (click)="deleteDepartment()">Confirm Delete</button>
+    <button class="btn btn-secondary" (click)="closeConfirmationDialog()">Cancel</button>
+  </div>
+</div>

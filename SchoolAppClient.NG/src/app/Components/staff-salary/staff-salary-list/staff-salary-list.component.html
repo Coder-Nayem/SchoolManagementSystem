@@ -1,0 +1,44 @@
+<div class="container">
+  <h2>Staff Salaries</h2>
+
+  <div class="staff-salary-header">
+    <a routerLink="/staff-salaries-create" class="btn btn-primary mb-3">Add New Staff Salary</a>
+    <button class="btn btn-primary" (click)="loadStaffSalaries()">Refresh Staff Salary Data</button>
+  </div>
+
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Staff Name</th>
+        <th>Basic Salary</th>
+        <th>Festival Bonus</th>
+        <th>Allowance</th>
+        <th>Medical Allowance</th>
+        <th>Housing Allowance</th>
+        <th>Transportation Allowance</th>
+        <th>Saving Fund</th>
+        <th>Taxes</th>
+        <th>Net Salary</th>
+        <th>Action</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let salary of staffSalaries">
+        <td>{{ salary.staffName }}</td>
+        <td>{{ salary.basicSalary }}</td>
+        <td>{{ salary.festivalBonus }}</td>
+        <td>{{ salary.allowance }}</td>
+        <td>{{ salary.medicalAllowance }}</td>
+        <td>{{ salary.housingAllowance }}</td>
+        <td>{{ salary.transportationAllowance }}</td>
+        <td>{{ salary.savingFund }}</td>
+        <td>{{ salary.taxes }}</td>
+        <td>{{ salary.netSalary }}</td>
+        <td><a routerLink="/staff-salaries-edit/{{ salary.staffSalaryId }}" class="btn btn-primary">Edit</a></td>
+        <td><a routerLink="/marks/delete/{{ salary.staffSalaryId }}" class="btn btn-danger">Delete</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

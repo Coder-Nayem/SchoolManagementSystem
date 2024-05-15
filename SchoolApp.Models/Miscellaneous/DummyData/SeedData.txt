@@ -1,0 +1,766 @@
+﻿protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<IdentityUserLogin<string>>()
+            .HasKey(u => new { u.UserId, u.LoginProvider, u.ProviderKey });
+
+            modelBuilder.Entity<IdentityUserRole<string>>()
+        .HasKey(r => new { r.UserId, r.RoleId });
+
+
+
+            // Configure the foreign key constraint for dbsMark referencing dbsSubject
+
+            modelBuilder.Entity<Mark>()
+                .HasOne(m => m.Subject)
+                .WithMany()
+                .HasForeignKey(m => m.SubjectId)
+                .OnDelete(DeleteBehavior.NoAction);
+            // Specify ON DELETE NO ACTION
+
+
+
+
+            //    modelBuilder.Entity<StaffExperience>()
+            //.Property(p => p.ServiceDuration)
+            //.HasComputedColumnSql("DATEDIFF(year, JoiningDate, ISNULL(LeavingDate, GETDATE()))"); // Calculate duration in years
+
+
+
+            modelBuilder.Entity<Subject>()
+        .HasIndex(s => s.SubjectCode)
+        .IsUnique();
+
+
+            modelBuilder.Entity<Student>()
+        .HasIndex(s => s.AdmissionNo)
+        .IsUnique();
+
+
+            modelBuilder.Entity<Student>()
+        .HasIndex(s => s.EnrollmentNo)
+        .IsUnique();
+
+
+           
+
+            // ----------------------------------------------- //
+
+            // Seed Attendance data
+            modelBuilder.Entity<Attendance>().HasData(
+                new Attendance
+                {
+                    AttendanceId = 1,
+                    IsPresent = true
+                    //,
+                    //Staffs = new Staff[]
+                    //{
+                    //new Staff { StaffId = 1},
+                    //new Staff { StaffId = 2}
+                    //},
+                    //Students = new Student[]
+                    //{
+                    //new Student { StudentId = 1 },
+                    //new Student { StudentId = 2 }
+                    //}
+                },
+                new Attendance
+                {
+                    AttendanceId = 2,
+                    IsPresent = true
+                    //,
+                    //Staffs = new Staff[]
+                    //{
+                    //new Staff { StaffId = 3},
+                    //new Staff { StaffId = 3}
+                    //},
+                    //Students = new Student[]
+                    //{
+                    //new Student { StudentId = 3},
+                    //new Student { StudentId = 2 }
+                    //}
+                },
+                new Attendance
+                {
+                    AttendanceId = 3
+                    //,
+                    //Staffs = new List<Staff>
+                    //{
+                    //new Staff { StaffId = 1},
+                    //new Staff { StaffId = 2}
+                    //},
+                    //Students = new List<Student>
+                    //{
+                    //new Student { StudentId = 1},
+                    //new Student { StudentId = 2 }
+                    //}
+                }
+            );
+
+            // ----------------------------------------------- //
+
+            // Seed Department data
+            modelBuilder.Entity<Department>().HasData(
+                new Department { DepartmentId = 1, DepartmentName = "IT" },
+                new Department { DepartmentId = 2, DepartmentName = "HR" },
+                new Department { DepartmentId = 3, DepartmentName = "Finance" }
+            );
+
+
+            // ----------------------------------------------- //
+
+            // Seed DueBalance data
+            modelBuilder.Entity<DueBalance>().HasData(
+                new DueBalance { DueBalanceId = 1, StudentId = 1 },
+                new DueBalance { DueBalanceId = 2, StudentId = 2 },
+                new DueBalance { DueBalanceId = 3, StudentId = 3 }
+            );
+
+
+            // ----------------------------------------------- //
+
+            // Seed ExamSchedule data along with associated ExamSubjects
+            modelBuilder.Entity<ExamSchedule>().HasData(
+                new ExamSchedule
+                {
+                    ExamScheduleId = 1,
+                    ExamScheduleName = "Midterm Exam",
+                    ExamTypeId = 1
+                    //,
+                    //ExamSubjects = new List<ExamSubject>
+                    //{
+                    //new ExamSubject { ExamSubjectId = 1},
+                    //new ExamSubject { ExamSubjectId = 2}
+                    //}
+                },
+                new ExamSchedule
+                {
+                    ExamScheduleId = 2,
+                    ExamScheduleName = "Final Exam",
+                    ExamTypeId = 2
+                    //,
+                    //ExamSubjects = new List<ExamSubject>
+                    //{
+                    //new ExamSubject { ExamSubjectId = 1},
+                    //new ExamSubject { ExamSubjectId = 2 }
+                    //}
+                },
+                new ExamSchedule
+                {
+                    ExamScheduleId = 3,
+                    ExamScheduleName = "Practical Exam",
+                    ExamTypeId = 3
+                    //,
+                    //ExamSubjects = new List<ExamSubject>
+                    //{
+                    //new ExamSubject { ExamSubjectId = 2},
+                    //new ExamSubject { ExamSubjectId = 3 }
+                    //}
+                }
+            );
+
+
+
+            // ----------------------------------------------- //
+
+
+            // Seed ExamSubject data
+            modelBuilder.Entity<ExamSubject>().HasData(
+                new ExamSubject { ExamSubjectId = 1, SubjectId = 1, ExamScheduleId = 1 },
+                new ExamSubject { ExamSubjectId = 2, SubjectId = 2, ExamScheduleId = 1 },
+                new ExamSubject { ExamSubjectId = 3, SubjectId = 3, ExamScheduleId = 2 },
+                new ExamSubject { ExamSubjectId = 4, SubjectId = 1, ExamScheduleId = 2 },
+                new ExamSubject { ExamSubjectId = 5, SubjectId = 2, ExamScheduleId = 3 },
+                new ExamSubject { ExamSubjectId = 6, SubjectId = 3, ExamScheduleId = 3 }
+            );
+
+
+            // ----------------------------------------------- //
+
+            // Seed ExamType data
+            modelBuilder.Entity<ExamType>().HasData(
+                new ExamType { ExamTypeId = 1, ExamTypeName = "Midterm" },
+                new ExamType { ExamTypeId = 2, ExamTypeName = "Final" },
+                new ExamType { ExamTypeId = 3, ExamTypeName = "Practical" }
+            );
+
+
+            // ----------------------------------------------- //
+
+            // Seed FeePaymentDetail data
+            modelBuilder.Entity<FeePaymentDetail>().HasData(
+                new FeePaymentDetail
+                {
+                    FeePaymentDetailId = 1,
+                    FeePaymentId = 1,
+                    FeeTypeName = "Tuition Fee",
+                    FeeAmount = 500
+                },
+                new FeePaymentDetail
+                {
+                    FeePaymentDetailId = 2,
+                    FeePaymentId = 1,
+                    FeeTypeName = "Library Fee",
+                    FeeAmount = 100
+                },
+                new FeePaymentDetail
+                {
+                    FeePaymentDetailId = 3,
+                    FeePaymentId = 2,
+                    FeeTypeName = "Tuition Fee",
+                    FeeAmount = 600
+                },
+                new FeePaymentDetail
+                {
+                    FeePaymentDetailId = 4,
+                    FeePaymentId = 2,
+                    FeeTypeName = "Sports Fee",
+                    FeeAmount = 200
+                },
+                new FeePaymentDetail
+                {
+                    FeePaymentDetailId = 5,
+                    FeePaymentId = 3,
+                    FeeTypeName = "Tuition Fee",
+                    FeeAmount = 700
+                },
+                new FeePaymentDetail
+                {
+                    FeePaymentDetailId = 6,
+                    FeePaymentId = 3,
+                    FeeTypeName = "Exam Fee",
+                    FeeAmount = 250
+                }
+            );
+
+           
+            // ----------------------------------------------- //
+
+            // Seed FeePayment data
+            modelBuilder.Entity<FeePayment>().HasData(
+                new FeePayment
+                {
+                    FeePaymentId = 1,
+                    StudentId = 1,
+                    StudentName = "John Doe",
+                    TotalFeeAmount = 1000,
+                    Discount = 10,
+                    AmountAfterDiscount = 900,
+                    PreviousDue = 0,
+                    TotalAmount = 900,
+                    AmountPaid = 500,
+                    AmountRemaining = 400,
+                    PaymentDate = DateTime.Now
+                    //,
+                    //FeeStructures = new List<FeeStructure>
+                    //{
+                    //new FeeStructure { FeeStructureId = 1},
+                    //new FeeStructure { FeeStructureId = 2}
+                    //}
+                    //,
+                    //FeePaymentDetails = new List<FeePaymentDetail>
+                    //{
+                    //new FeePaymentDetail { FeePaymentDetailId = 1},
+                    //new FeePaymentDetail { FeePaymentDetailId = 2 }
+                    //}
+                },
+                new FeePayment
+                {
+                    FeePaymentId = 2,
+                    StudentId = 2,
+                    StudentName = "Jane Doe",
+                    TotalFeeAmount = 1500,
+                    Discount = 200,
+                    AmountAfterDiscount = 1300,
+                    PreviousDue = 100,
+                    TotalAmount = 1400,
+                    AmountPaid = 1400,
+                    AmountRemaining = 0,
+                    PaymentDate = DateTime.Now
+                    //,
+                    //FeeStructures = new List<FeeStructure>
+                    //{
+                    //new FeeStructure { FeeStructureId = 1},
+                    //new FeeStructure { FeeStructureId = 2}
+                    //}
+                    //,
+                    //FeePaymentDetails = new List<FeePaymentDetail>
+                    //{
+                    //new FeePaymentDetail { FeePaymentDetailId = 1},
+                    //new FeePaymentDetail { FeePaymentDetailId = 2 }
+                    //}
+                },
+                new FeePayment
+                {
+                    FeePaymentId = 3,
+                    StudentId = 3,
+                    StudentName = "Alice Smith",
+                    TotalFeeAmount = 1200,
+                    Discount = 0,
+                    AmountAfterDiscount = 1200,
+                    PreviousDue = 50,
+                    TotalAmount = 1250,
+                    AmountPaid = 1250,
+                    AmountRemaining = 0,
+                    PaymentDate = DateTime.Now
+                    //,
+                    //FeeStructures = new List<FeeStructure>
+                    //{
+                    //new FeeStructure { FeeStructureId = 1},
+                    //new FeeStructure { FeeStructureId = 2}
+                    //}
+                    //,
+                    //FeePaymentDetails = new List<FeePaymentDetail>
+                    //{
+                    //new FeePaymentDetail { FeePaymentDetailId = 1},
+                    //new FeePaymentDetail { FeePaymentDetailId = 2 }
+                    //}
+                }
+            );
+
+            // ----------------------------------------------- //
+
+
+            
+
+
+            // Seed FeeStructure data
+            modelBuilder.Entity<FeeStructure>().HasData(
+                new FeeStructure
+                {
+                    FeeStructureId = 1,
+                    FeeTypeId = 1,
+                    TypeName = "Registration Fee",
+                    StandardId = 1,
+                    StandardName = "Grade 1",
+                    Monthly = false,
+                    Yearly = true,
+                    FeeAmount = 500
+                },
+                new FeeStructure
+                {
+                    FeeStructureId = 2,
+                    FeeTypeId = 2,
+                    TypeName = "Tuition Fee",
+                    StandardId = 2,
+                    StandardName = "Grade 2",
+                    Monthly = true,
+                    Yearly = false,
+                    FeeAmount = 1000
+                },
+                new FeeStructure
+                {
+                    FeeStructureId = 3,
+                    FeeTypeId = 3,
+                    TypeName = "Library Fee",
+                    StandardId = 3,
+                    StandardName = "Grade 3",
+                    Monthly = false,
+                    Yearly = true,
+                    FeeAmount = 200
+                }
+            );
+
+            // ----------------------------------------------- //
+
+            // Seed FeeType data
+            modelBuilder.Entity<FeeType>().HasData(
+                new FeeType
+                {
+                    FeeTypeId = 1,
+                    TypeName = "Registration Fee"
+                },
+                new FeeType
+                {
+                    FeeTypeId = 2,
+                    TypeName = "Tuition Fee"
+                },
+                new FeeType
+                {
+                    FeeTypeId = 3,
+                    TypeName = "Library Fee"
+                }
+            );
+
+            // ----------------------------------------------- //
+
+            // Seed Mark data
+            modelBuilder.Entity<Mark>().HasData(
+                new Mark
+                {
+                    MarkId = 1,
+                    ExamPaperScore = 80,
+                    PassMarks = 40,
+                    ObtainedScore = 65,
+                    Grade = Grade.B,
+                    PassStatus = Pass.Passed,
+                    MarkEntryDate = DateTime.Now,
+                    Feedback = "Good job!",
+                    StudentId = 1,
+                    SubjectId = 1
+                },
+                new Mark
+                {
+                    MarkId = 2,
+                    ExamPaperScore = 90,
+                    PassMarks = 40,
+                    ObtainedScore = 75,
+                    Grade = Grade.A,
+                    PassStatus = Pass.Passed,
+                    MarkEntryDate = DateTime.Now,
+                    Feedback = "Excellent work!",
+                    StudentId = 2,
+                    SubjectId = 1
+                }
+                // Add more seed data as needed
+            );
+
+            // ----------------------------------------------- //
+
+            // Seed MarkEntry data along with associated Marks
+            modelBuilder.Entity<MarkEntry>().HasData(
+                new MarkEntry
+                {
+                    MarkEntryId = 1,
+                    MarkEntryDate = DateTime.Now,
+                    StaffId = 1,
+                    SubjectId = 1
+                //    , 
+                //    Marks = new List<Mark>
+                //    {
+                //new Mark
+                //{
+                //    MarkId = 1
+                //},
+                //new Mark
+                //{
+                //    MarkId = 2
+                //}
+                //    }
+                }
+                ,
+                new MarkEntry
+                {
+                    MarkEntryId = 2,
+                    MarkEntryDate = DateTime.Now,
+                    StaffId = 2,
+                    SubjectId = 2
+                //    , 
+                //    Marks = new List<Mark>
+                //    {
+                //new Mark
+                //{
+                //    MarkId = 2
+                //}
+                       
+                //    }
+                }
+                ,
+                new MarkEntry
+                {
+                    MarkEntryId = 3,
+                    MarkEntryDate = DateTime.Now,
+                    StaffId = 2,
+                    SubjectId = 2
+                //    ,
+                //    Marks = new List<Mark>
+                //    {
+                //new Mark
+                //{
+                //    MarkId = 2
+                //}
+
+                //    }
+                }
+
+            );
+
+            // ----------------------------------------------- //
+
+            // Seed Staff data if required
+            modelBuilder.Entity<Staff>().HasData(
+                new Staff
+                {
+                    StaffId = 1,
+                    StaffName = "John Doe",
+                    Gender = Gender.Male,                    
+                    DepartmentId = 1, 
+                    Status = "Active",
+                    StaffSalaryId = 1
+                    //,
+                    //StaffExperiences = new List<StaffExperience>
+                    //{
+                    //new StaffExperience { StaffExperienceId = 1},
+                    //new StaffExperience { StaffExperienceId = 2}
+                    //},
+
+                },
+                new Staff
+                {
+                    StaffId = 2,
+                    StaffName = "Jane Smith",
+                    Gender = Gender.Female,                    
+                    DepartmentId = 2, 
+                    Status = "Active",
+                    StaffSalaryId = 2
+                    
+                    //,
+                    //StaffExperiences = new List<StaffExperience>
+                    //{
+                    //new StaffExperience { StaffExperienceId = 1},
+                    //new StaffExperience { StaffExperienceId = 2}
+                    //}
+
+                },
+                new Staff
+                {
+                    StaffId = 3,
+                    StaffName = "Jane Smith",
+                    Gender = Gender.Female,
+                    DepartmentId = 2,
+                    Status = "Active",
+                    StaffSalaryId = 2
+                    //,
+                    //StaffExperiences = new List<StaffExperience>
+                    //{
+                    //new StaffExperience { StaffExperienceId = 1},
+                    //new StaffExperience { StaffExperienceId = 2}
+                    //}
+
+                }
+            );
+
+            // ----------------------------------------------- //
+
+            // Seed StaffExperience data if required
+            modelBuilder.Entity<StaffExperience>().HasData(
+                new StaffExperience
+                {
+                    StaffExperienceId = 1,
+                    CompanyName = "ABC School",
+                    Designation = "Teacher",                    
+                    Responsibilities = "Teaching Mathematics and Physics",
+                    Achievements = "Improved student performance by 20%",
+                },
+                new StaffExperience
+                {
+                    StaffExperienceId = 2,
+                    CompanyName = "ABC School",
+                    Designation = "Teacher",
+                    Responsibilities = "Teaching Mathematics and Physics",
+                    Achievements = "Improved student performance by 20%",
+                },
+                new StaffExperience
+                {
+                    StaffExperienceId = 3,
+                    CompanyName = "ABC School",
+                    Designation = "Teacher",
+                    Responsibilities = "Teaching Mathematics and Physics",
+                    Achievements = "Improved student performance by 20%",
+                }
+
+            );
+
+            // ----------------------------------------------- //
+
+            // Seed StaffSalary data if required
+            modelBuilder.Entity<StaffSalary>().HasData(
+                new StaffSalary
+                {
+                    StaffSalaryId = 1,
+                    BasicSalary = 5000,
+                    FestivalBonus = 1000,
+                    Allowance = 500,
+                    MedicalAllowance = 300,
+                    HousingAllowance = 800,
+                    TransportationAllowance = 200,
+                    SavingFund = 200,
+                    Taxes = 500,
+                },
+               new StaffSalary
+               {
+                   StaffSalaryId = 2,
+                   BasicSalary = 5000,
+                   FestivalBonus = 1000,
+                   Allowance = 500,
+                   MedicalAllowance = 300,
+                   HousingAllowance = 800,
+                   TransportationAllowance = 200,
+                   SavingFund = 200,
+                   Taxes = 500,
+               },
+               new StaffSalary
+               {
+                   StaffSalaryId = 3,
+                   BasicSalary = 5000,
+                   FestivalBonus = 1000,
+                   Allowance = 500,
+                   MedicalAllowance = 300,
+                   HousingAllowance = 800,
+                   TransportationAllowance = 200,
+                   SavingFund = 200,
+                   Taxes = 500,
+               }
+            );
+
+            // ----------------------------------------------- //
+
+            // Seed Standard data if required
+            modelBuilder.Entity<Standard>().HasData(
+                new Standard
+                {
+                    StandardId = 1,
+                    StandardName = "Standard 1",
+                    StandardCapacity = "30 students",
+                },
+                new Standard
+                {
+                    StandardId = 2,
+                    StandardName = "Standard 2",
+                    StandardCapacity = "35 students",
+                },
+                 new Standard
+                 {
+                     StandardId = 3,
+                     StandardName = "Standard 2",
+                     StandardCapacity = "35 students",
+                 }
+            
+            );
+
+            // ----------------------------------------------- //
+
+            // Seed Student data if required
+            modelBuilder.Entity<Student>().HasData(
+                new Student
+                {
+                    StudentId = 1,
+                    AdmissionNo = 1000,
+                    EnrollmentNo = 2000,
+                    StudentName = "John Doe",
+                    
+                    StudentGender = GenderList.Male,
+                    
+                    StudentBloodGroup = "A+",
+                    StudentNationality = "American",
+                    StudentNIDNumber = 123456789,
+                    StudentContactNumber1 = "1234567890",
+                    StudentEamil = "john.doe@example.com",
+                    PermanentAddress = "123 Main Street, City, Country",
+                    TemporaryAddress = "456 Elm Street, City, Country",
+                    FatherName = "Michael Doe",
+                    FatherNID = 987654321,
+                    FatherContactNumber = "9876543210",
+                    MotherName = "Alice Doe",
+                    MotherNID = 987654322,
+                    MotherContactNumber = "9876543220",
+                    LocalGuardianName = "Jane Smith",
+                    LocalGuardianContactNumber = "9876543230",
+                    StandardId = 1, 
+                },
+
+                new Student
+                {
+                    StudentId = 2,
+                    AdmissionNo = 1001,
+                    EnrollmentNo = 2001,
+                    StudentName = "John Doe",
+
+                    StudentGender = GenderList.Male,
+
+                    StudentBloodGroup = "A+",
+                    StudentNationality = "American",
+                    StudentNIDNumber = 123456789,
+                    StudentContactNumber1 = "1234567890",
+                    StudentEamil = "john.doe@example.com",
+                    PermanentAddress = "123 Main Street, City, Country",
+                    TemporaryAddress = "456 Elm Street, City, Country",
+                    FatherName = "Michael Doe",
+                    FatherNID = 987654321,
+                    FatherContactNumber = "9876543210",
+                    MotherName = "Alice Doe",
+                    MotherNID = 987654322,
+                    MotherContactNumber = "9876543220",
+                    LocalGuardianName = "Jane Smith",
+                    LocalGuardianContactNumber = "9876543230",
+                    StandardId = 2,
+                },
+                new Student
+                {
+                    StudentId = 3,
+                    AdmissionNo = 1002,
+                    EnrollmentNo = 2002,
+                    StudentName = "John Doe",
+
+                    StudentGender = GenderList.Male,
+
+                    StudentBloodGroup = "A+",
+                    StudentNationality = "American",
+                    StudentNIDNumber = 123456789,
+                    StudentContactNumber1 = "1234567890",
+                    StudentEamil = "john.doe@example.com",
+                    PermanentAddress = "123 Main Street, City, Country",
+                    TemporaryAddress = "456 Elm Street, City, Country",
+                    FatherName = "Michael Doe",
+                    FatherNID = 987654321,
+                    FatherContactNumber = "9876543210",
+                    MotherName = "Alice Doe",
+                    MotherNID = 987654322,
+                    MotherContactNumber = "9876543220",
+                    LocalGuardianName = "Jane Smith",
+                    LocalGuardianContactNumber = "9876543230",
+                    StandardId = 1,
+                }
+            );
+
+
+            // ----------------------------------------------- //
+
+            // Seed Subject data if required
+            modelBuilder.Entity<Subject>().HasData(
+                new Subject
+                {
+                    SubjectId = 1,
+                    SubjectName = "Mathematics",
+                    SubjectCode = 101,
+                    StandardId = 1 
+                },
+                new Subject
+                {
+                    SubjectId = 2,
+                    SubjectName = "Physics",
+                    SubjectCode = 102,
+                    StandardId = 2
+                },
+                new Subject
+                {
+                    SubjectId = 3,
+                    SubjectName = "Chemistry",
+                    SubjectCode = 103,
+                    StandardId = 2
+                },
+                new Subject
+                {
+                    SubjectId = 4,
+                    SubjectName = "Biology",
+                    SubjectCode = 104,
+                    StandardId = 2
+                },
+                new Subject
+                {
+                    SubjectId = 5,
+                    SubjectName = "Computer Science",
+                    SubjectCode = 105,
+                    StandardId = 2
+                },
+                new Subject
+                {
+                    SubjectId = 6,
+                    SubjectName = "Electronics",
+                    SubjectCode = 106,
+                    StandardId = 1
+                }
+           
+            );
+        }

@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>false</InvariantGlobalization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ImageModel\**" />
+    <Content Remove="ImageModel\**" />
+    <EmbeddedResource Remove="ImageModel\**" />
+    <None Remove="ImageModel\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\EmployeesController.cs" />
+    <Compile Remove="Controllers\EmployeeTypesController.cs" />
+    <Compile Remove="Controllers\ExamSubjectsController.cs" />
+    <Compile Remove="Controllers\FeePaymentsController.cs" />
+    <Compile Remove="Controllers\FeeStructuresController.cs" />
+    <Compile Remove="Controllers\MarkEntriesController.cs" />
+    <Compile Remove="Controllers\StaffAttendancesController.cs" />
+    <Compile Remove="Controllers\StudentAttendancesController.cs" />
+    <Compile Remove="Services\LoginUser.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FastReport.Compat" Version="2024.2.1" />
+    <PackageReference Include="FastReport.Data.MsSql" Version="2024.2.1" />
+    <PackageReference Include="FastReport.OpenSource" Version="2024.2.1" />
+    <PackageReference Include="FastReport.OpenSource.Export.PdfSimple" Version="2024.2.1" />
+    <PackageReference Include="FastReport.OpenSource.Web" Version="2024.2.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.2" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.8.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SchoolApp.DAL\SchoolApp.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Upload\" />
+  </ItemGroup>
+
+</Project>
